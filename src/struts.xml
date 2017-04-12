@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<!--解决乱码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->
+	<constant name="struts.multipart.maxSize" value="10701096" />
+
+	<package name="person" extends="struts-default" namespace="/person">
+		<action name="list" method="list" class="com.ylw.action.PersonAction">
+			<result name="success" >/list.jsp</result>
+		</action>
+	</package>
+</struts>
+
+<!-- END SNIPPET: xworkSample -->
+

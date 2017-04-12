@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+
+    <class name="com.ylw.po.Person" table="person">
+        <!--使用配置的缓存-->
+        <cache usage="read-write" region="com.ylw.po.Person"/>
+       <id name="id" column="id"></id>
+        <property name="name" column="name"></property>
+        <property name="birthday" column="birthday"></property>
+        <property name="aid" column="aid"></property>
+    </class>
+
+</hibernate-mapping>

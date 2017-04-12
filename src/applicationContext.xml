@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!-- 配置hibernate5的SessionFactory -->
+    <bean name="localSessionFactoryBean" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!--<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>-->
+        <property name="mappingResources">
+            <list>
+                <value>com/ylw/po/User.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                hibernate.show_sql=true
+                hibernate.format=true
+                <!--设置缓存-->
+                hibernate.cache.use_second_level_cache=true
+                hibernate.cache.use_query_cache=false
+                <!--hibernate.cache.provider_class=org.hibernate.cache.EhCacheProvider-->
+                hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+            </value>
+        </property>
+    </bean>
+    <!--需要commons-dbcp.jar commons-pool.jar   因为用的是第二代jar包,所以这里要变成dbcp2.而不是dbcp.-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/test?characterEncoding=UTF8" />
+        <property name="username" value="root" />
+        <property name="password" value="123456" />
+    </bean>
+    <!--使用声明的方法启动事务,所以需要这句-->
+    <tx:annotation-driven transaction-manager="txManager"/>
+    <!--需要spring-jdbc-*.jar-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+
+    <bean name="personDao" class="com.ylw.dao.impl.PersonDaoImpl">
+        <property name="sf" ref="localSessionFactoryBean"/>
+        <!--向PersonDaoImpl里面注入dataSource,注入属性之和set的名称和参数有关系,和field名字没有关系-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    </bean>
+
+
+
+
+    <bean id="personAction" class="com.ylw.action.PersonAction" scope="prototype">
+        <property name="personDao" ref="personDao" />
+    </bean>
+</beans>
