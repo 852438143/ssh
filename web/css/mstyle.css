@@ -1,0 +1,129 @@
+@CHARSET "UTF-8";
+/* CSS Document */
+.body {
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+}
+
+* {
+	margin: 0px;
+}
+
+.wrap {
+	width: 0;
+	height: 0;
+	position: fixed;
+	left: 50%;
+	rigth: 50%;
+	top: 50%;
+	bottom: 50%;
+}
+
+.content {
+	border-radius: 20px;
+	width: 600px;
+	height: 220px;
+	margin-left: -300px;
+	margin-top: -110px;
+}
+
+.content1 {
+	border-radius: 20px;
+	width: 600px;
+	height: 220px;
+	margin-left: 300px;
+	margin-top: -110px;
+}
+.con {
+	border-radius: 20px;
+	width: 600px;
+	height: 300px;
+	margin-left: -300px;
+	margin-top: 50px;
+}
+
+#web_bg {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: -2;
+}
+
+#web_bg1 {
+	position: absolute;
+	left: 480px;
+	top: 200px;
+	width: 100%;
+	height: 60%;
+	z-index: -1;
+}
+
+#img {
+	position: fixed;
+}
+
+#con {
+	height: 500px;
+	width: 400px;
+	margin: 0 auto;
+}
+
+#conn {
+	height: 500px;
+	width: 13px;
+	margin: 0 auto;
+}
+
+.button {
+	width: 160px;
+	height: 30px;
+	background-color: rgba(255, 255, 255, 0.7);
+	font-family: "STkaiti";
+}
+
+.main {
+	font-size: 16px;
+	margin: 15px 15px 3px 2px;
+}
+
+.dd {
+	width: 390px;
+	padding: 10px;
+	margin: 50px auto 0;
+	font-size: 12px;
+	padding-bottom: 5px;
+}
+
+.l{
+	width:0;
+	heught:0;
+	position:fixed;
+	left:50%;
+	right:50%;
+	top:51%;
+	bottom:49%;
+}
+
+.ll{
+	width:600px;
+	height:220px;
+	margin-left:-300px;
+	margin-top:-110px;
+}
+
+td{
+	padding:1.2px;
+	border:1px solid #fff;
+	border-bottom-color:#cccccc;
+	border-right-color:#cccccc;
+}
+
+th{
+	padding:1.2px;
+	border:1.7px solid #fff;
+	border-bottom-color:#47a3da;
+	border-right-color:#47a3da;
+}

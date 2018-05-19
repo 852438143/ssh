@@ -4,36 +4,51 @@
 <!--<hibernate-configuration>-->
     <!--<session-factory>-->
 
-        <!-- =============== 数据库连接设置 =================== -->
+         <!--&lt;!&ndash;=============== 数据库连接设置 ===================&ndash;&gt;-->
         <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
-        <!--<property name="connection.url">jdbc:mysql://localhost:3306/test?characterEncoding=UTF8</property>-->
-        <!--<property name="connection.username">root</property>-->
-        <!--<property name="connection.password">123456</property>-->
+        <!--<property name="connection.url">jdbc:mysql://localhost:3306/ssh?characterEncoding=UTF8</property>-->
 
-        <!-- =============== 配置使用c3p0数据库连接池 =================== -->
-        <!--<property name="connection.pool_size">1</property>-->
-        <!--<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>-->
-        <!--<property name="c3p0.min_size">5</property>-->
-        <!--<property name="c3p0.max_size">20</property>-->
-        <!--<property name="c3p0.timeout">120</property>-->
-        <!--<property name="c3p0.idle_test_period">3000</property>-->
+        <!--&lt;!&ndash;=============== 配置使用c3p0数据库连接池 ===================&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="connection.pool_size">1</property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="c3p0.min_size">5</property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="c3p0.max_size">20</property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="c3p0.timeout">120</property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="c3p0.idle_test_period">3000</property>&ndash;&gt;-->
 
 
 
-        <!-- =============== 数据库方言设置 =================== -->
+         <!--&lt;!&ndash;=============== 数据库方言设置 ===================&ndash;&gt;-->
         <!--<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>-->
 
-        <!-- =============== 二级缓存设置 =================== -->
-        <!--<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>-->
+         <!--&lt;!&ndash;=============== 二级缓存设置 ===================&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>&ndash;&gt;-->
 
-        <!-- =============== 控制台打印sql语句设置设置 =================== -->
+         <!--&lt;!&ndash;=============== 控制台打印sql语句设置设置 ===================&ndash;&gt;-->
         <!--<property name="show_sql">true</property>-->
+        <!--<property name="format_sql">true</property>-->
 
-        <!-- =============== 数据库表结构更新设置 =================== -->
-        <!--<property name="hbm2ddl.auto">update</property>-->
+         <!--&lt;!&ndash;=============== 数据库表结构更新设置 ===================&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="hbm2ddl.auto">update</property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/Attachment.hbm.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping class="Attachment"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping class="Comment"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/Comment.hbm.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/Content.hbm.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping class="Content"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/Course.hbm.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping class="Course"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/Paper.hbm.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping class="Paper"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/Question.hbm.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping class="Question"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/Student.hbm.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping class="Student"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/StudentCourse.hbm.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping class="StudentCourse"/>&ndash;&gt;-->
 
-        <!-- =============== 实体关系列表 =================== -->
-        <!--<mapping resource="com/ylw/po/User.hbm.xml" />-->
+        <!--&lt;!&ndash;=============== 实体关系列表 ===================&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapping resource="com/ylw/po/User.hbm.xml" />&ndash;&gt;-->
 
     <!--</session-factory>-->
 

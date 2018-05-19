@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.mule.elearing.po.StudentCourse" table="tb_student_course" schema="ssh">
+        <composite-id mapped="true" class="com.mule.elearing.po.StudentCoursePK">
+            <key-property name="studentId">
+                <column name="studentId" sql-type="varchar(50)" length="50"/>
+            </key-property>
+            <key-property name="courseId">
+                <column name="courseId" sql-type="varchar(32)" length="32"/>
+            </key-property>
+        </composite-id>
+        <property name="courseName">
+            <column name="courseName" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="contentId">
+            <column name="contentId" sql-type="varchar(32)" length="32" />
+        </property>
+        <property name="contentName">
+            <column name="contentName" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="time">
+            <column name="time" sql-type="varchar(20)" length="20" />
+        </property>
+        <property name="field1">
+            <column name="field1" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="field2">
+            <column name="field2" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="field3">
+            <column name="field3" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="field4">
+            <column name="field4" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="field5">
+            <column name="field5" sql-type="varchar(50)" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

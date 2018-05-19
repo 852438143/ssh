@@ -17,6 +17,6 @@
         diskPersistent="false"
         diskExpiryThreadIntervalSeconds="60"/>
     <!--配置一个新的缓存,-->
-	<cache name="com.ylw.po.Person" maxElementsInMemory="100" eternal="false"
-    overflowToDisk="true" timeToIdleSeconds="300" timeToLiveSeconds="600" diskPersistent="false"/>
+	<cache name="com.mule.elearing.po.Person" maxElementsInMemory="100" eternal="false"
+           overflowToDisk="true" timeToIdleSeconds="300" timeToLiveSeconds="600" diskPersistent="false"/>
 </ehcache>

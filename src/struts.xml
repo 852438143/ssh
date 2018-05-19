@@ -1,22 +1,165 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE struts PUBLIC
-	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
-	"http://struts.apache.org/dtds/struts-2.5.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <!-- START SNIPPET: xworkSample -->
 <struts>
-	<!--解决乱码 -->
-	<constant name="struts.i18n.encoding" value="UTF-8" />
-	<!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->
-	<constant name="struts.multipart.maxSize" value="10701096" />
+    <!--解决乱码 -->
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->
+    <constant name="struts.multipart.maxSize" value="209715200"/>
 
-	<package name="person" extends="struts-default" namespace="/person">
-		<action name="list" method="list" class="com.ylw.action.PersonAction">
-			<result name="success" >/list.jsp</result>
-		</action>
-	</package>
+    <package name="paper" extends="struts-default" namespace="/paper">
+        <action name="create" method="createPaper" class="com.mule.elearing.action.PaperAction">
+            <!--<result name="success">/showPaper.jsp</result>-->
+            <result name="success" type="redirect">startTestPaper.action?paperId=${paper.paperId}</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="startTestPaper" method="startTestPaper" class="com.mule.elearing.action.PaperAction">
+            <result name="success">/startTestPaper.jsp</result>
+        </action>
+        <action name="afterTestPaper" method="afterTestPaper" class="com.mule.elearing.action.PaperAction">
+            <result name="success">/afterTestPaper.jsp</result>
+        </action>
+        <action name="getPapersByStudent" method="showPapersByStudentId" class="com.mule.elearing.action.PaperAction">
+            <result name="success">/showStudentPaper.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="showPaperByPaperId" method="showPaperByPaperId" class="com.mule.elearing.action.PaperAction">
+            <result name="success">/afterTestPaper.jsp</result>
+        </action>
+        <action name="getPaperByCourseId" method="showPaperByCourseId" class="com.mule.elearing.action.PaperAction">
+            <!--貌似不能重定向到一个action里面,只能实现转发 ,也可以在result标签里面嵌套param标签
+                或者通过<result type="chain">aaaa</result> 不可以写.action
+            -->
+            <result name="success" type="redirect">/paper/startTestPaper.action?paperId=${paper.paperId}</result>
+            <result name="error">/msg.jsp</result>
+        </action>
+
+        <action name="getPapersByCourseId" method="showPapersByCourseId" class="com.mule.elearing.action.PaperAction">
+            <!--貌似不能重定向到一个action里面,只能实现转发 ,也可以在result标签里面嵌套param标签
+                或者通过<result type="chain">aaaa</result> 不可以写.action
+            -->
+            <result name="success" >/admin/adminLookScore.jsp</result>
+            <result name="error">/msg.jsp</result>
+        </action>
+
+        <action name="getPapers" method="showPapers" class="com.mule.elearing.action.PaperAction">
+            <result name="success">/listPapers.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+    </package>
+
+
+    <package name="person" extends="struts-default" namespace="/">
+        <!--<action name="list" method="list" class="PersonAction">-->
+        <!--<result name="success" >/list.jsp</result>-->
+        <!--</action>-->
+        <action name="login" method="login" class="com.mule.elearing.action.StudentAction">
+            <result name="success" type="redirect">/getByKeyword.action</result>
+
+            <result name="error">/login.jsp</result>
+        </action>
+        <action name="logout" method="logout" class="com.mule.elearing.action.StudentAction">
+            <result name="success" >/login.jsp</result>
+            <result name="error">/login.jsp</result>
+        </action>
+        <action name="register" method="register" class="com.mule.elearing.action.StudentAction">
+            <result name="success">/showStudentInformation.jsp</result>
+            <result name="error">/login.jsp</result>
+        </action>
+        <action name="updateStudent" method="updateStudent" class="com.mule.elearing.action.StudentAction">
+            <result name="success" type="redirect">/showStudentInformation.jsp</result>
+            <result name="error">/login.jsp</result>
+
+        </action>
+
+        <!-- 	<action name="show" method="getCourses" class="CourseAction">
+                <result name="success">/show_student_course.jsp</result>
+                <result name="error">/login.jsp</result>
+            </action> -->
+        <action name="show_content" method="getContentsByCourseId" class="com.mule.elearing.action.ContentAction">
+            <result name="success">/test2.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+
+        <action name="show_attachment" method="getUrlByCId" class="com.mule.elearing.action.AttachmentAction">
+            <result name="success">/test2.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <!--貌似Action类里面的方法使用get开头的话,会被执行两次,不知道为什么-->
+        <action name="show_course" method="showCourseMessage" class="com.mule.elearing.action.CourseAction">
+            <result name="success">/showCourse.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+
+        <action name="class" method="showClass" class="com.mule.elearing.action.ContentAction">
+            <result name="success">/class.jsp</result>
+            <result name="error">/showCourse.jsp</result>
+        </action>
+        <action name="doComment" method="save" class="com.mule.elearing.action.CommentAction">
+            <result name="success">/comment.jsp</result>
+            <result name="error">/comment.jsp</result>
+        </action>
+        <action name="showComment" method="showComments" class="com.mule.elearing.action.CommentAction">
+            <result name="success">/comment.jsp</result>
+            <result name="error">/comment.jsp</result>
+        </action>
+        <action name="setTime" method="setTime" class="com.mule.elearing.action.CourseAction">
+            <result name="success">/class.jsp</result>
+            <result name="error">/class.jsp</result>
+        </action>
+        <action name="getByKeyword" method="getByKeyword" class="com.mule.elearing.action.CourseAction">
+            <result name="success">/index.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+
+        <action name="getByKeywordOrName" method="getCourseByKeywordsOrName" class="com.mule.elearing.action.CourseAction">
+            <result name="success">/index.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="getCoursesByStudent" method="showCoursesByStudent" class="com.mule.elearing.action.CourseAction">
+            <result name="success">/showStudentCourse.jsp</result>
+            <result name="error">/login.jsp</result>
+        </action>
+        <!--还没写-->
+        <action name="removeStudentCourse" method="removeStudentCourse" class="com.mule.elearing.action.CourseAction">
+            <result name="success">/getCourseByStudent.action</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="saveStudentCourse" method="saveStudentCourse" class="com.mule.elearing.action.CourseAction">
+            <result name="success">/showCourse.jsp</result>
+        </action>
+        <action name="uploadCourse" method="uploadCourse" class="com.mule.elearing.action.UploadAction">
+            <result name="success" type="redirect">show_course?courseId=${courseId}</result>
+            <result name="error">/login.jsp</result>
+        </action>
+    </package>
+    <package name="student" extends="struts-default" namespace="/student">
+        <!--<action ></action>-->
+    </package>
+    <package name="admin" extends ="struts-default" namespace="/admin">
+        <action name="getByKeyword" method="getByKeyword" class="com.mule.elearing.action.CourseAction">
+            <result name="success">/admin/index.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <!--<action name="getCommentsAndPapers" method="getCommentsAndPapers" class="CourseAction">-->
+            <!--<result name="success">/admin/showCourse.jsp</result>-->
+        <!--</action>-->
+        <action name="getStudents" method="showStudents" class="com.mule.elearing.action.StudentAction">
+            <result name="success">/admin/showStudents.jsp</result>
+        </action>
+        <action name="getStudentById" method="getStudentById" class="com.mule.elearing.action.StudentAction">
+            <result name="success">/showStudentInformation.jsp</result>
+        </action>
+
+    </package>
+
+
+
 </struts>
 
-<!-- END SNIPPET: xworkSample -->
+        <!-- END SNIPPET: xworkSample -->
 

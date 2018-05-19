@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.mule.elearing.po.Course" table="tb_course" schema="ssh">
+        <id name="courseId">
+            <column name="courseId" sql-type="varchar(32)" length="32" not-null="true"/>
+        </id>
+        <property name="courseName">
+            <column name="courseName" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="introduction">
+            <column name="introduction" sql-type="text" />
+        </property>
+        <property name="studentNum">
+            <column name="studentNum" sql-type="int(5)" />
+        </property>
+        <property name="teacher">
+            <column name="teacher" sql-type="varchar(10)" length="10" />
+        </property>
+        <property name="level">
+            <column name="level" sql-type="varchar(10)" length="10" />
+        </property>
+        <property name="startTime">
+            <column name="startTime" sql-type="varchar(20)" length="20" />
+        </property>
+        <property name="keyword">
+            <column name="keyword" sql-type="varchar(20)" length="20" />
+        </property>
+        <property name="picUrl">
+            <column name="picUrl" sql-type="varchar(100)" length="100" />
+        </property>
+        <property name="field1">
+            <column name="field1" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="field2">
+            <column name="field2" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="field3">
+            <column name="field3" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="field4">
+            <column name="field4" sql-type="varchar(50)" length="50" />
+        </property>
+        <property name="field5">
+            <column name="field5" sql-type="varchar(50)" length="50" />
+        </property>
+        <!--<one-to-one name="tbContentByCourseId" class="com.mule.elearing.po.Content"/>-->
+        <set name="tbContentByCourseId" >
+            <key column="courseId"/>
+            <one-to-many class="com.mule.elearing.po.Content"></one-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

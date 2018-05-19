@@ -3,18 +3,31 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--<context:component-scan base-package="com.mule.elearing.po">-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>-->
+    <!--</context:component-scan>-->
 
     <!-- 配置hibernate5的SessionFactory -->
     <bean name="localSessionFactoryBean" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
         <!--<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>-->
         <property name="mappingResources">
             <list>
-                <value>com/ylw/po/User.hbm.xml</value>
+                <value>com/mule/elearing/po/User.hbm.xml</value>
+                <value>com/mule/elearing/po/Attachment.hbm.xml</value>
+                <value>com/mule/elearing/po/Comment.hbm.xml</value>
+                <value>com/mule/elearing/po/Content.hbm.xml</value>
+                <value>com/mule/elearing/po/Course.hbm.xml</value>
+                <value>com/mule/elearing/po/Paper.hbm.xml</value>
+                <value>com/mule/elearing/po/Question.hbm.xml</value>
+                <value>com/mule/elearing/po/Student.hbm.xml</value>
+                <value>com/mule/elearing/po/StudentCourse.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -22,20 +35,22 @@
                 hibernate.dialect=org.hibernate.dialect.MySQLDialect
                 hibernate.show_sql=true
                 hibernate.format=true
+                hibernate.hbm2ddl.auto=update
                 <!--设置缓存-->
                 hibernate.cache.use_second_level_cache=true
                 hibernate.cache.use_query_cache=false
                 <!--hibernate.cache.provider_class=org.hibernate.cache.EhCacheProvider-->
                 hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+                packagesToScan=com.mule.elearing.po
             </value>
         </property>
     </bean>
     <!--需要commons-dbcp.jar commons-pool.jar   因为用的是第二代jar包,所以这里要变成dbcp2.而不是dbcp.-->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/test?characterEncoding=UTF8" />
-        <property name="username" value="root" />
-        <property name="password" value="123456" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/ssh?characterEncoding=UTF8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
     </bean>
     <!--使用声明的方法启动事务,所以需要这句-->
     <tx:annotation-driven transaction-manager="txManager"/>
@@ -45,17 +60,95 @@
     </bean>
 
 
+    <bean name="personDao" class="com.mule.elearing.dao.impl.PersonDaoImpl">
+        <property name="sf" ref="localSessionFactoryBean"/>
+        <!--向PersonDaoImpl里面注入dataSource,注入属性之和set的名称和参数有关系,和field名字没有关系-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    </bean>
+    <bean name="attachmentDao" class="com.mule.elearing.dao.impl.AttachmentDaoImpl">
+        <property name="sf" ref="localSessionFactoryBean"/>
+        <!--向PersonDaoImpl里面注入dataSource,注入属性之和set的名称和参数有关系,和field名字没有关系-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    </bean>
 
-    <bean name="personDao" class="com.ylw.dao.impl.PersonDaoImpl">
+    <bean name="commentDao" class="com.mule.elearing.dao.impl.CommentDaoImpl">
+        <property name="sf" ref="localSessionFactoryBean"/>
+    </bean>
+
+    <bean name="contentDao" class="com.mule.elearing.dao.impl.ContentDaoImpl">
+        <property name="sf" ref="localSessionFactoryBean"/>
+    </bean>
+
+    <bean name="courseDao" class="com.mule.elearing.dao.impl.CourseDaoImpl">
+        <property name="sf" ref="localSessionFactoryBean"/>
+    </bean>
+
+    <bean name="paperDao" class="com.mule.elearing.dao.impl.PaperDaoImpl">
+        <property name="sf" ref="localSessionFactoryBean"/>
+    </bean>
+
+    <bean name="questionDao" class="com.mule.elearing.dao.impl.QuestionDaoImpl">
+        <property name="sf" ref="localSessionFactoryBean"/>
+    </bean>
+    <bean name="studentDao" class="com.mule.elearing.dao.impl.StudentDaoImpl">
         <property name="sf" ref="localSessionFactoryBean"/>
         <!--向PersonDaoImpl里面注入dataSource,注入属性之和set的名称和参数有关系,和field名字没有关系-->
         <!--<property name="dataSource" ref="dataSource"/>-->
     </bean>
 
 
-
-
-    <bean id="personAction" class="com.ylw.action.PersonAction" scope="prototype">
-        <property name="personDao" ref="personDao" />
+    <bean name="attachmentService" class="com.mule.elearing.service.AttachmentService">
+        <property name="attachmentDao" ref="attachmentDao"/>
     </bean>
+
+    <bean name="commentService" class="com.mule.elearing.service.CommentService">
+        <property name="commentDao" ref="commentDao"/>
+    </bean>
+
+    <bean name="contentService" class="com.mule.elearing.service.ContentService">
+        <property name="contentDao" ref="contentDao"/>
+    </bean>
+
+    <bean name="courseService" class="com.mule.elearing.service.CourseService">
+        <property name="courseDao" ref="courseDao"/>
+    </bean>
+
+    <bean id="paperService" class="com.mule.elearing.service.impl.PaperServiceImpl">
+        <property name="paperDao" ref="paperDao"></property>
+        <property name="questionDao" ref="questionDao"></property>
+    </bean>
+    <bean name="studentService" class="com.mule.elearing.service.StudentService">
+        <property name="studentDao" ref="studentDao"/>
+
+        <!--向PersonDaoImpl里面注入dataSource,注入属性之和set的名称和参数有关系,和field名字没有关系-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    </bean>
+
+
+    <bean id="attachmentAction" class="com.mule.elearing.action.AttachmentAction" scope="prototype">
+        <property name="attachmentService" ref="attachmentService"/>
+    </bean>
+
+    <bean id="commentAction" class="com.mule.elearing.action.CommentAction" scope="prototype">
+        <property name="commentService" ref="commentService"/>
+    </bean>
+    <bean id="contentAction" class="com.mule.elearing.action.ContentAction" scope="prototype">
+        <property name="contentService" ref="contentService"/>
+        <property name="courseService" ref="courseService"/>
+    </bean>
+    <bean id="courseAction" class="com.mule.elearing.action.CourseAction" scope="prototype">
+        <property name="courseService" ref="courseService"/>
+        <property name="contentService" ref="contentService"/>
+        <property name="commentService" ref="commentService"/>
+    </bean>
+    <bean id="paperAction" class="com.mule.elearing.action.PaperAction" scope="prototype">
+        <property name="paperService" ref="paperService"/>
+        <property name="courseService" ref="courseService"/>
+    </bean>
+    <bean id="studentAction" class="com.mule.elearing.action.StudentAction" scope="prototype">
+        <property name="studentService" ref="studentService"/>
+        <property name="courseService" ref="courseService"/>
+    </bean>
+
+
 </beans>
